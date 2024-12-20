@@ -14,7 +14,7 @@ RSpec.describe Cell do
   end
 
   it 'returns coordinates' do
-
+    expect(@cell.coordinates).to eq("B4")
   end
 
 end
