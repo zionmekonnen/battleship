@@ -34,5 +34,18 @@ RSpec.describe Cell do
     @cell.place_ship(@cruiser)
     expect(@cell.empty?).to be(false)
   end
+  
+  it 'initially has not been fired upon' do
+    expect(@cell.fired_upon?).to be(false)
+  end
+
+  it 'decreases ship health when fired upon' do
+    @cell.place_ship(@cruiser)
+    @cell.fire_upon
+    expect(@cell.ship.health).to eq(2)
+    expect(@cell.fired_upon?).to be(true)
+  end
+
+  
 
 end
