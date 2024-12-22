@@ -55,8 +55,18 @@ RSpec.describe Cell do
     expect(@cell_1.render).to eq("M")
   end
 
-  
-
-
+  it 'cell 2 displays correctly when fired upon' do
+    @cell_2.place_ship(@cruiser)
+    expect(@cell_2.render).to eq('.')
+    expect(@cell_2.render(true)).to eq('S') 
+    @cell_2.fire_upon
+    expect(@cell_2.render).to eq('H')
+    expect(@cruiser.sunk?).to be(false)
+    @cruiser.hit
+    @cruiser.hit
+    expect(@cruiser.sunk?).to be(true)
+    expect(@cell_2.render).to eq('X')
+  end
+   
 
 end

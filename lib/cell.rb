@@ -36,11 +36,16 @@ class Cell
     end
   end
 
-  def render()
-    if @fired_upon == false
-      return '.'
+  def render(plyer_ownership = false)
+    if @fired_upon == false && plyer_ownership == true
+      return 'S' 
     elsif @fired_upon == true && @ship_in_cell == nil
       return 'M'
+    elsif @fired_upon == false
+      return '.'
+    elsif @fired_upon == true && @ship_in_cell.sunk? == false
+       return 'H'
+    else return 'X'
     end
   end
 end
