@@ -28,4 +28,12 @@ class Board
     @cells.key?(coordinates)
   end
 
+  def valid_placement?(ship, coordinates)
+    ship.length == coordinates.length && consecutive_coordinates?(coordinates)
+  end
+
+  def consecutive_coordinates?(coordinates)
+
+  end
+
 end
