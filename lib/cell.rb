@@ -34,7 +34,14 @@ class Cell
       ship.hit 
       return @fired_upon = true
     end
+  end
 
+  def render()
+    if @fired_upon == false
+      return '.'
+    elsif @fired_upon == true && @ship_in_cell == nil
+      return 'M'
+    end
   end
 end
 

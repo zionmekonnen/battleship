@@ -7,6 +7,8 @@ RSpec.describe Cell do
   before (:each) do
     @cruiser = Ship.new("Cruiser", 3)
     @cell = Cell.new("B4")
+    @cell_1 = Cell.new("B4")
+    @cell_2 = Cell.new("C3")
   end
 
   it 'exists' do
@@ -46,6 +48,15 @@ RSpec.describe Cell do
     expect(@cell.fired_upon?).to be(true)
   end
 
+  it 'cell 1 displays correctly when fired upon' do 
+    expect(@cell_1.render).to eq('.')
+
+    @cell_1.fire_upon
+    expect(@cell_1.render).to eq("M")
+  end
+
   
+
+
 
 end
