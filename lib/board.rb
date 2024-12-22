@@ -20,6 +20,12 @@ class Board
       "D3" => Cell.new("D3"),
       "D4" => Cell.new("D4")
     }
+
+    @valid_coordinate = false
   end
-  
+
+  def valid_coordinate?(coordinates)
+    @cells.key?(coordinates)
+  end
+
 end
