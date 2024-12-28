@@ -29,10 +29,24 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    ship.length == coordinates.length && consecutive_coordinates?(coordinates)
+    if ship.length != coordinates.length 
+      return false
+    end
+    letters = []
+    numbers =[]
+    coordinates.each do |coordinate|
+      letters << coordinate.slice(0,1)
+      numbers << coordinate.slice(1,coordinate.length - 1)
+    end
+    return is_consecutive?(letters) && is_constant?(numbers) || is_consecutive?(numbers) && is_constant?(letters)
+
+
   end
 
-  def consecutive_coordinates?(coordinates)
+
+
+  def is_consecutive?()
+    
 
   end
 
