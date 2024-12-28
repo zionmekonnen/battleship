@@ -59,4 +59,10 @@ class Board
   end
  end
 
+ def place(ship, coordinates)
+  #check is the placement valid 
+  #is it overlapping with another ship 
+  #if not overlapping it need to be assigned to the cell
+ end
+
 end

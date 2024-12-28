@@ -8,9 +8,9 @@ RSpec.describe Cell do
   before (:each) do
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
-    @cell = Cell.new("B4")
-    @cell_1 = Cell.new("B4")
-    @cell_2 = Cell.new("C3")
+    @cell_1 = @board.cells["A1"]
+    @cell_2 = @board.cells["A2"]
+    @cell_3 = @board.cells["A3"]
 
     @board = Board.new
   end
@@ -49,5 +49,13 @@ RSpec.describe Cell do
     expect(@board.valid_placement?(@cruiser, ["B1", "C1", "D1"])).to be(true)
 
   end
+
+  it 'places ship in cells' do
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    expect(@cell_1).to eq(@board.cells['A1'])
+    expect(@cell_2).to eq(@board.cells['A2'])
+    expect(@cell_3).to eq(@board.cells['A3'])
+  end
+
 
 end
