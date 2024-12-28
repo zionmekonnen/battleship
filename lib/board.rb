@@ -53,6 +53,10 @@ class Board
     end
   end
 
-  
+ def is_constant?(array)
+  array.all? do |element|
+    element == array[0]
+  end
+ end
 
 end
