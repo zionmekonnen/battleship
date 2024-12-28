@@ -29,11 +29,40 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    ship.length == coordinates.length && consecutive_coordinates?(coordinates)
+    if ship.length != coordinates.length 
+      return false
+    end
+    letters = []
+    numbers =[]
+    coordinates.each do |coordinate|
+      letters << coordinate.slice(0,1)
+      numbers << coordinate.slice(1,coordinate.length - 1)
+    end
+    return is_consecutive?(letters) && is_constant?(numbers) || is_consecutive?(numbers) && is_constant?(letters)
   end
 
-  def consecutive_coordinates?(coordinates)
 
+  def is_consecutive?(array)
+    range = (array[0].ord)..(array[0].ord + array.length - 1)
+    array_ord = array.map do |element|
+      element.ord
+    end
+    if array_ord == range.to_a
+      return true 
+    else return false 
+    end
   end
+
+ def is_constant?(array)
+  array.all? do |element|
+    element == array[0]
+  end
+ end
+
+ def place(ship, coordinates)
+  #check is the placement valid 
+  #is it overlapping with another ship 
+  #if not overlapping it need to be assigned to the cell
+ end
 
 end
