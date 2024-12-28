@@ -39,15 +39,13 @@ class Board
       numbers << coordinate.slice(1,coordinate.length - 1)
     end
     return is_consecutive?(letters) && is_constant?(numbers) || is_consecutive?(numbers) && is_constant?(letters)
-
-
   end
 
 
 
-  def is_consecutive?()
+  def is_consecutive?(array)
+    range = (array[0].ord)..(array[0].ord + array.length - 1)
     
-
   end
 
 end
