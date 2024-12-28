@@ -42,10 +42,17 @@ class Board
   end
 
 
-
   def is_consecutive?(array)
     range = (array[0].ord)..(array[0].ord + array.length - 1)
-    
+    array_ord = array.map do |element|
+      element.ord
+    end
+    if array_ord == range.to_a
+      return true 
+    else return false 
+    end
   end
+
+  
 
 end
