@@ -60,7 +60,9 @@ RSpec.describe Cell do
     expect(@cell_1.ship).to eq(@cruiser)
     expect(@cell_2.ship).to eq(@cruiser)
     expect(@cell_3.ship).to eq(@cruiser)
-    
+    expect(@cell_3.ship).to eq(@cell_2.ship)
+
+    expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to be(false)
   end
 
 

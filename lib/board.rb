@@ -1,3 +1,5 @@
+require 'pry'
+
 class Board
   attr_reader :cells
 
@@ -33,7 +35,9 @@ class Board
       return false
     end
 
-    overlapping?(coordinates)
+    if overlapping?(coordinates) == true
+      return false
+    end
 
     letters = []
     numbers =[]
@@ -47,7 +51,7 @@ class Board
   def place(ship, coordinates)
     #check is the placement valid 
     #is it overlapping with another ship 
-    if valid_placement?(ship, coordinates) == true
+    if valid_placement?(ship, coordinates)
       #if not overlapping it need to be assigned to the cell
       coordinates.each do |coordinate|
         @cells[coordinate].place_ship(ship)
