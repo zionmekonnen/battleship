@@ -8,11 +8,12 @@ RSpec.describe Cell do
   before (:each) do
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
+    @board = Board.new
+
     @cell_1 = @board.cells["A1"]
     @cell_2 = @board.cells["A2"]
     @cell_3 = @board.cells["A3"]
 
-    @board = Board.new
   end
 
   it 'board exists' do
@@ -55,6 +56,10 @@ RSpec.describe Cell do
     expect(@cell_1).to eq(@board.cells['A1'])
     expect(@cell_2).to eq(@board.cells['A2'])
     expect(@cell_3).to eq(@board.cells['A3'])
+
+    expect(@cell_1.ship).to eq(@cruiser)
+    expect(@cell_2.ship).to eq(@cruiser)
+    expect(@cell_3.ship).to eq(@cruiser)
     
   end
 
