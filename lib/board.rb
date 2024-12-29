@@ -61,13 +61,13 @@ class Board
 
   def render(player_ownership = false)
     row_1 = "  1 2 3 4 \n"
-    # row_2 = "A . . . . \n" -> "A " + (render cell A1) + (render cell A2) + ... + " \n"
     rows = ["A", "B", "C", "D"].map do |row|
-      # row + (stuff to add to the string) + " \n"
       columns = ["1", "2", "3", "4"].map do |column|
-        row + column -> "A1"
-      end
+        @cells[row + column].render(player_ownership)
+      end.join(" ")
+      row + " " + columns + " \n"
     end
+    row_1 + rows.join
   end
 
 

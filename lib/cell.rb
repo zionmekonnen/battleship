@@ -37,7 +37,7 @@ class Cell
   end
 
   def render(plyer_ownership = false)
-    if @fired_upon == false && plyer_ownership == true
+    if @fired_upon == false && plyer_ownership == true && @ship_in_cell != nil
       return 'S' 
     elsif @fired_upon == true && @ship_in_cell == nil
       return 'M'
