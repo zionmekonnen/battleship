@@ -55,6 +55,7 @@ RSpec.describe Cell do
     expect(@cell_1).to eq(@board.cells['A1'])
     expect(@cell_2).to eq(@board.cells['A2'])
     expect(@cell_3).to eq(@board.cells['A3'])
+    
   end
 
 

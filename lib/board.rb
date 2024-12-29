@@ -32,6 +32,9 @@ class Board
     if ship.length != coordinates.length 
       return false
     end
+
+    overlapping?(coordinates)
+
     letters = []
     numbers =[]
     coordinates.each do |coordinate|
@@ -41,6 +44,17 @@ class Board
     return is_consecutive?(letters) && is_constant?(numbers) || is_consecutive?(numbers) && is_constant?(letters)
   end
 
+ def place(ship, coordinates)
+  #check is the placement valid 
+  #is it overlapping with another ship 
+  if valid_placement?(ship, coordinates) == true
+    #if not overlapping it need to be assigned to the cell
+    
+  end
+
+ end
+
+ private
 
   def is_consecutive?(array)
     range = (array[0].ord)..(array[0].ord + array.length - 1)
@@ -53,16 +67,17 @@ class Board
     end
   end
 
- def is_constant?(array)
-  array.all? do |element|
-    element == array[0]
+  def is_constant?(array)
+    array.all? do |element|
+      element == array[0]
+    end
   end
- end
 
- def place(ship, coordinates)
-  #check is the placement valid 
-  #is it overlapping with another ship 
-  #if not overlapping it need to be assigned to the cell
- end
+  def overlapping?(coordinates)
+    coordinates.any? do |coordinate|
+      !@cells[coordinate].empty?
+    end
+  end
+
 
 end
