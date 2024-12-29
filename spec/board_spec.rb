@@ -72,8 +72,15 @@ RSpec.describe Cell do
   end
 
   it 'draws a board with correct hits and misses' do
-
+    @board.place(@cruiser, ["A1", "A2", "A3"]) 
+    @board.place(@submarine, ["C1", "D1"])
+    
+    @cruiser.hit
+    @cruiser.hit
+    expect(@cruiser.health).to eq(1)
+    @cruiser.hit
+    expect(@cruiser.sunk?).to be(true)
+    #We will come back to fully test rendering the board later
   end
-
 
 end
