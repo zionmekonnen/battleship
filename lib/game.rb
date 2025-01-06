@@ -11,6 +11,7 @@ class Game
         return 
        end
         game_setup
+
         take_turns
         game_ending
     end
@@ -36,5 +37,24 @@ class Game
         @human_player.human_place_ships
         @computer_player.computer_place_ships
     end
-    
+    def take_turns
+        loop do
+            p "=============COMPUTER BOARD============="
+            @board.render
+            p '==============PLAYER BOARD=============='
+            @board.render(true)
+
+            p 'Enter the coordinates where you would like to create devastation!:'
+
+            loop do 
+                input = gets.chomp
+                break if @board.valid_coordinate?(input) == true
+                p "Please enter a valid coordinate:"
+            end
+
+
+
+        end
+
+    end
 end
