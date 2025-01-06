@@ -24,5 +24,6 @@ RSpec.describe Player do
         expect(@game.computer_player).to be_a(Player)
     end
 
-    
+    it 'can'
+
 end    

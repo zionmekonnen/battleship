@@ -3,10 +3,13 @@ class Game
     def initialize 
         @human_player = Player.new
         @computer_player = Player.new
+        @board = Board.new
     end
 
     def run_game()
-        game_intro
+       if game_intro == false 
+        return 
+       end
         game_setup
         take_turns
         game_ending
@@ -26,6 +29,12 @@ class Game
             puts "Invalid Selection, Rerun the Game."
             return false 
         end
+    end
+     def game_setup()
+        puts 'Please place your 2 ships, The Cruiser is three units long and the Submarine is two units long.'
+
+        @human_player.human_place_ships
+        @computer_player.computer_place_ships
     end
     
 end
