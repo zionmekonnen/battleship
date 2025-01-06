@@ -51,8 +51,16 @@ class Game
                 break if @board.valid_coordinate?(input) == true
                 p "Please enter a valid coordinate:"
             end
-
-
+            @human_player.human_fire_upon_coordinates(input)
+            @computer_player.computer_fire_upon_coordinates
+            
+            if @human_player.all_ships_sunk? == true 
+                return false
+            end
+            if @computer_player.all_ships_sunk? == true 
+                return true
+            end
+            
 
         end
 
