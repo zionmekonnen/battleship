@@ -27,5 +27,23 @@ class Player
         end
      end
 
+     def find_horizontal_coordinates(computer_coordinate_1, length)
+        first_number = computer_coordinate_1.slice(1, computer_coordinate_1.length - 1)
+        number_array = (first_number..(first_number + length - 1)).to_a
+        
+        number_array.map do |number|
+            computer_coordinate_1.slice(0, 1) + number.to_s
+        end
+     end
+
+     def find_vertical_coordinates(computer_coordinate_1, length)
+        first_letter = computer_coordinate_1.slice(0, 1)
+        letter_array = (first_letter.."Z").to_a[0, length]
+
+        letter_array.map do |letter|
+            letter + computer_coordinate_1.slice(1, computer_coordinate_1.length - 1)
+        end
+     end
+
      
 end
