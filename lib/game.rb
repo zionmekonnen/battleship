@@ -1,9 +1,10 @@
 class Game 
     attr_reader :human_player, :computer_player
     def initialize 
-        @board = Board.new
-        @human_player = Player.new(@board)
-        @computer_player = Player.new(@board)
+        @board_computer = Board.new
+        @board_human = Board.new
+        @human_player = Player.new(@board_human, @board_computer)
+        @computer_player = Player.new(@board_computer, @board_human)
     end
 
     def run_game()
@@ -44,17 +45,10 @@ class Game
     def take_turns
         loop do
             p "=============COMPUTER BOARD============="
-            @board.render
+            @board_computer.render
             p '==============PLAYER BOARD=============='
-            @board.render(true)
+            @board_human.render(true)
 
-            p 'Enter the coordinates where you would like to create devastation!:'
-
-            loop do 
-                input = gets.chomp
-                break if @board.valid_coordinate?(input) == true
-                p "Please enter a valid coordinate:"
-            end
             @human_player.human_fire_upon_coordinates(input)
             @computer_player.computer_fire_upon_coordinates
             
