@@ -56,6 +56,9 @@ class Board
       coordinates.each do |coordinate|
         @cells[coordinate].place_ship(ship)
       end
+      return true
+    else
+      return false
     end
   end
 

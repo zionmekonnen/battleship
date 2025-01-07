@@ -7,23 +7,24 @@ class Player
      end
 
      def human_place_ships
-
+        
      end
 
      def computer_place_ships
         #We need random coordinates, and a ship
         loop do
             computer_coordinate_1 = @board.cells.keys.sample
+            orientation = ["horizontal", "vertical"].sample
 
-            find_horizontal_coordinates(computer_coordinate_1)
-            # find_vertical_coordinates(computer_coordinate_1)
-            
-            # A4, A3, A2 -> legal! (horizontal)
+            if orientation == "horizontal"
+                coordinates = find_horizontal_coordinates(computer_coordinate_1, ship.length)
+            else
+                coordinates = find_vertical_coordinates(computer_coordinate_1, ship.length)
+            end
 
-            # B2, B3, B4 -> legal!
-            # A4, B4, C4 -> legal! (vertical)
-
-            @board.place(ship, coordinates)
+            if @board.place(ship, coordinates) == true
+                break
+            end
         end
      end
 
@@ -38,7 +39,7 @@ class Player
 
      def find_vertical_coordinates(computer_coordinate_1, length)
         first_letter = computer_coordinate_1.slice(0, 1)
-        letter_array = (first_letter.."Z").to_a[0, length]
+        letter_array = (first_letter..(first_letter.ord + length - 1).chr).to_a
 
         letter_array.map do |letter|
             letter + computer_coordinate_1.slice(1, computer_coordinate_1.length - 1)
