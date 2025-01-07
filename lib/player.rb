@@ -8,6 +8,36 @@ class Player
 
      def human_place_ships
         
+        loop do
+            @board.render(true)
+            puts "Place cruiser ship (3 spaces)"
+            input = gets.chomp
+            coordinates = input.split
+
+
+            #Need to make sure coordinates match the ship length, and valid placement
+            if @board.place(ship, coordinates) == true
+                break
+            end
+
+            puts "Invalid placement.  Please try again."
+        end
+
+        loop do
+            @board.render(true)
+            puts "Place submarine ship (2 spaces)"
+            input = gets.chomp
+            coordinates = input.split
+
+
+            #Need to make sure coordinates match the ship length, and valid placement
+            if @board.place(ship, coordinates) == true
+                break
+            end
+
+            puts "Invalid placement.  Please try again."
+        end
+
      end
 
      def computer_place_ships
