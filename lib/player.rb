@@ -77,12 +77,12 @@ class Player
         end
     end
 
-    def human_fire_upon_coordinates(input)
+    def human_fire_upon_coordinates
         loop do
             p 'Enter the coordinates where you would like to create devastation!:'
             loop do 
                 input = gets.chomp
-                break if @board.valid_coordinate?(input) == true
+                break if @board_computer.valid_coordinate?(input) == true
                 p "Please enter a valid coordinate:"
             end
             
@@ -94,7 +94,22 @@ class Player
 
         @board_computer.cells[input].fire_upon
     end
-    
+
+    def computer_fire_upon_coordinates
+        loop do 
+            computer_coordinate_1 = @board_human.cells.keys.sample
+            if @board_human.cells[computer_coordinate_1].fired_upon? == false
+                break
+            end
+        end
+        @board_human.cells[computer_coordinate_1].fire_upon
+    end
+
+    def all_ships_sunk?
+        @ships_owned.all? do |ship|
+           ship.sunk?
+        end
+    end
 
      
 end

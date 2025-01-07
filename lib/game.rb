@@ -49,7 +49,7 @@ class Game
             p '==============PLAYER BOARD=============='
             @board_human.render(true)
 
-            @human_player.human_fire_upon_coordinates(input)
+            @human_player.human_fire_upon_coordinates
             @computer_player.computer_fire_upon_coordinates
             
             if @human_player.all_ships_sunk? == true 
