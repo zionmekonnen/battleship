@@ -1,9 +1,9 @@
 class Game 
     attr_reader :human_player, :computer_player
     def initialize 
-        @human_player = Player.new
-        @computer_player = Player.new
         @board = Board.new
+        @human_player = Player.new(@board)
+        @computer_player = Player.new(@board)
     end
 
     def run_game()
