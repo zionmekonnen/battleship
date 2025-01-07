@@ -6,7 +6,7 @@ require './lib/game'
 require 'rspec'
 require 'pry'
 
-RSpec.describe Player do 
+RSpec.describe Game do 
     before (:each) do
         @cruiser = Ship.new("Cruiser", 3)
         @submarine = Ship.new("Submarine", 2)
@@ -23,7 +23,5 @@ RSpec.describe Player do
         expect(@game.human_player).to be_a(Player)
         expect(@game.computer_player).to be_a(Player)
     end
-
-    it 'can'
 
 end    
