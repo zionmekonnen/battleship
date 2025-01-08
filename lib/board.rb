@@ -29,12 +29,21 @@ class Board
   def valid_coordinate?(coordinates)
     @cells.key?(coordinates)
   end
+   
 
   def valid_placement?(ship, coordinates)
     if ship.length != coordinates.length 
       return false
     end
 
+    any_invalid_coordinates = coordinates.any?  do |coordinate|
+      !valid_coordinate?(coordinate)
+    end
+    
+    if any_invalid_coordinates == true 
+      return false 
+    end
+    
     if overlapping?(coordinates) == true
       return false
     end
