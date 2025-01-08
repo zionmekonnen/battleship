@@ -8,17 +8,18 @@ class Game
     end
 
     def run_game()
-       if game_intro == false 
-        return 
-       end
-        game_setup
-        player_win_status = take_turns
-        if player_win_status == true
-            p "You are so amazing, you WIN!"
-        else 
-            p "You lose! Better luck next time."
+        loop do
+            if game_intro == false 
+                return 
+            end
+            game_setup
+            player_win_status = take_turns
+            if player_win_status == true
+                p "You are so amazing, you WIN!"
+            else 
+                p "You lose! Better luck next time."
+            end
         end
-
     end
 
     def game_intro()

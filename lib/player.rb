@@ -92,6 +92,14 @@ class Player
             puts "I said enter a coordinate you haven't fired upon before!"
         end
 
+       if  @board_computer.cells[input].empty? == true 
+        puts "Your shot at #{input} was a miss!"
+       elsif @board_computer.cells[input].empty? == false && @board_computer.cells[input].ship_in_cell.sunk? == true
+        puts "Your shot at #{input} sunk the ship!"
+       else 
+        puts "Your shot at #{input} was a hit!"
+
+       end
         @board_computer.cells[input].fire_upon
     end
 
@@ -103,6 +111,15 @@ class Player
             end
         end
         @board_human.cells[computer_coordinate_1].fire_upon
+
+        if  @board_human.cells[computer_coordinate_1].empty? == true 
+                puts "My shot at #{computer_coordinate_1} was a miss!"
+        elsif @board_human.cells[computer_coordinate_1].empty? == false && @board_human.cells[computer_coordinate_1].ship_in_cell.sunk? == true
+            puts "My shot at #{computer_coordinate_1} sunk the ship!"
+        else 
+            puts "My shot at #{computer_coordinate_1} was a hit!"
+    
+        end
     end
 
     def all_ships_sunk?
