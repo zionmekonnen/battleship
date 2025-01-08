@@ -1,3 +1,4 @@
+require 'pry'
 class Player 
     attr_reader :coordinates_shot_at, :ships_owned
     def initialize(board_human, board_computer)
@@ -7,60 +8,81 @@ class Player
         @board_computer = board_computer
     end
 
+    def create_ship(name, length)
+        @ships_owned << Ship.new(name, length)
+    end
+
     def human_place_ships
-        
+        cruiser = create_ship("Cruiser", 3)
+        submarine = create_ship('Submarine', 2)
         loop do
-            @board_human.render(true)
-            puts "Place cruiser ship (3 spaces)"
-            input = gets.chomp
-            coordinates = input.split
-
-
-            #Need to make sure coordinates match the ship length, and valid placement
-            if @board_human.place(ship, coordinates) == true
-                break
-            end
-
-            puts "Invalid placement.  Please try again."
-        end
-
-        loop do
-            @board_human.render(true)
+            puts @board_human.render(true)
             puts "Place submarine ship (2 spaces)"
             input = gets.chomp
             coordinates = input.split
 
 
             #Need to make sure coordinates match the ship length, and valid placement
-            if @board_human.place(ship, coordinates) == true
+            if @board_human.place(@ships_owned[1], coordinates) == true
                 break
             end
 
             puts "Invalid placement.  Please try again."
         end
 
+        loop do
+            puts @board_human.render(true)
+            puts "Place cruiser ship (3 spaces)"
+            input = gets.chomp
+            coordinates = input.split
+
+            #Need to make sure coordinates match the ship length, and valid placement
+            if @board_human.place(@ships_owned[0], coordinates) == true
+                break
+            end
+
+            puts "Invalid placement.  Please try again."
+        end
+
+    
     end
 
     def computer_place_ships
         #We need random coordinates, and a ship
+        cruiser = create_ship("Cruiser", 3)
+        submarine = create_ship('Submarine', 2)
         loop do
             computer_coordinate_1 = @board_computer.cells.keys.sample
             orientation = ["horizontal", "vertical"].sample
 
             if orientation == "horizontal"
-                coordinates = find_horizontal_coordinates(computer_coordinate_1, ship.length)
+                coordinates = find_horizontal_coordinates(computer_coordinate_1, @ships_owned[0].length)
             else
-                coordinates = find_vertical_coordinates(computer_coordinate_1, ship.length)
+                coordinates = find_vertical_coordinates(computer_coordinate_1, @ships_owned[0].length)
             end
 
-            if @board_computer.place(ship, coordinates) == true
+            if @board_computer.place(@ships_owned[0], coordinates) == true
+                break
+            end
+        end
+        loop do
+            computer_coordinate_1 = @board_computer.cells.keys.sample
+            orientation = ["horizontal", "vertical"].sample
+
+            if orientation == "horizontal"
+                coordinates = find_horizontal_coordinates(computer_coordinate_1, @ships_owned[1].length)
+            else
+                coordinates = find_vertical_coordinates(computer_coordinate_1, @ships_owned[1].length)
+            end
+
+            if @board_computer.place(@ships_owned[1], coordinates) == true
                 break
             end
         end
     end
 
     def find_horizontal_coordinates(computer_coordinate_1, length)
-        first_number = computer_coordinate_1.slice(1, computer_coordinate_1.length - 1)
+        first_number = computer_coordinate_1.slice(1, computer_coordinate_1.length - 1).to_i
         number_array = (first_number..(first_number + length - 1)).to_a
         
         number_array.map do |number|
@@ -78,6 +100,7 @@ class Player
     end
 
     def human_fire_upon_coordinates
+        input = ''
         loop do
             p 'Enter the coordinates where you would like to create devastation!:'
             loop do 
@@ -94,7 +117,7 @@ class Player
 
        if  @board_computer.cells[input].empty? == true 
         puts "Your shot at #{input} was a miss!"
-       elsif @board_computer.cells[input].empty? == false && @board_computer.cells[input].ship_in_cell.sunk? == true
+       elsif @board_computer.cells[input].empty? == false && @board_computer.cells[input].ship.sunk? == true
         puts "Your shot at #{input} sunk the ship!"
        else 
         puts "Your shot at #{input} was a hit!"
@@ -104,6 +127,7 @@ class Player
     end
 
     def computer_fire_upon_coordinates
+        computer_coordinate_1 = ''
         loop do 
             computer_coordinate_1 = @board_human.cells.keys.sample
             if @board_human.cells[computer_coordinate_1].fired_upon? == false
@@ -114,7 +138,7 @@ class Player
 
         if  @board_human.cells[computer_coordinate_1].empty? == true 
                 puts "My shot at #{computer_coordinate_1} was a miss!"
-        elsif @board_human.cells[computer_coordinate_1].empty? == false && @board_human.cells[computer_coordinate_1].ship_in_cell.sunk? == true
+        elsif @board_human.cells[computer_coordinate_1].empty? == false && @board_human.cells[computer_coordinate_1].ship.sunk? == true
             puts "My shot at #{computer_coordinate_1} sunk the ship!"
         else 
             puts "My shot at #{computer_coordinate_1} was a hit!"

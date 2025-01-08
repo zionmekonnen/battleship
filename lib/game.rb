@@ -4,7 +4,7 @@ class Game
         @board_computer = Board.new
         @board_human = Board.new
         @human_player = Player.new(@board_human, @board_computer)
-        @computer_player = Player.new(@board_computer, @board_human)
+        @computer_player = Player.new(@board_human, @board_computer)
     end
 
     def run_game()
@@ -46,9 +46,9 @@ class Game
     def take_turns
         loop do
             p "=============COMPUTER BOARD============="
-            @board_computer.render
+            puts @board_computer.render
             p '==============PLAYER BOARD=============='
-            @board_human.render(true)
+            puts @board_human.render(true)
 
             @human_player.human_fire_upon_coordinates
             @computer_player.computer_fire_upon_coordinates
