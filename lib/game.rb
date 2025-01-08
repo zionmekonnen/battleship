@@ -1,10 +1,15 @@
 class Game 
     attr_reader :human_player, :computer_player
     def initialize 
-        @board_computer = Board.new
-        @board_human = Board.new
-        @human_player = Player.new(@board_human, @board_computer)
-        @computer_player = Player.new(@board_human, @board_computer)
+        @board_computer = nil
+        @board_human = nil
+        @human_player = nil
+        @computer_player = nil
+
+        # @board_computer = Board.new
+        # @board_human = Board.new
+        # @human_player = Player.new(@board_human, @board_computer)
+        # @computer_player = Player.new(@board_human, @board_computer)
     end
 
     def run_game()
@@ -12,6 +17,13 @@ class Game
             if game_intro == false 
                 return 
             end
+
+            #Create new boards and players
+            @board_computer = Board.new
+            @board_human = Board.new
+            @human_player = Player.new(@board_human, @board_computer)
+            @computer_player = Player.new(@board_human, @board_computer)
+
             game_setup
             player_win_status = take_turns
             if player_win_status == true
@@ -53,13 +65,13 @@ class Game
             puts @board_human.render(true)
 
             @human_player.human_fire_upon_coordinates
-            @computer_player.computer_fire_upon_coordinates
-            
-            if @human_player.all_ships_sunk? == true 
-                return false
-            end
             if @computer_player.all_ships_sunk? == true 
                 return true
+            end
+
+            @computer_player.computer_fire_upon_coordinates
+            if @human_player.all_ships_sunk? == true 
+                return false
             end
         end
     end

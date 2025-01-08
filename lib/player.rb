@@ -110,6 +110,9 @@ class Player
             puts "I said enter a coordinate you haven't fired upon before!"
         end
 
+        # binding.pry
+        
+        @board_computer.cells[input].fire_upon
         if @board_computer.cells[input].empty? == true 
             puts "Your shot at #{input} was a miss!"
         elsif @board_computer.cells[input].empty? == false && @board_computer.cells[input].ship.sunk? == true
@@ -117,7 +120,6 @@ class Player
         else 
             puts "Your shot at #{input} was a hit!"
         end
-        @board_computer.cells[input].fire_upon
     end
 
     def computer_fire_upon_coordinates
