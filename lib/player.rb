@@ -1,10 +1,9 @@
 require 'pry'
 class Player 
     attr_reader :coordinates_shot_at
-    attr_accessor :ships_owned
+    attr_accessor :ships_owned          #Only used for one of the tests; otherwise not needed
 
     def initialize(board_human, board_computer)
-        @coordinates_shot_at = []
         @ships_owned = []
         @board_human = board_human      
         @board_computer = board_computer
@@ -23,8 +22,6 @@ class Player
             input = gets.chomp
             coordinates = input.split
 
-
-            #Need to make sure coordinates match the ship length, and valid placement
             if @board_human.place(@ships_owned[1], coordinates) == true
                 break
             end
@@ -38,19 +35,15 @@ class Player
             input = gets.chomp
             coordinates = input.split
 
-            #Need to make sure coordinates match the ship length, and valid placement
             if @board_human.place(@ships_owned[0], coordinates) == true
                 break
             end
 
             puts "Invalid placement.  Please try again."
         end
-
-    
     end
 
     def computer_place_ships
-        #We need random coordinates, and a ship
         cruiser = create_ship("Cruiser", 3)
         submarine = create_ship('Submarine', 2)
         loop do
@@ -117,14 +110,13 @@ class Player
             puts "I said enter a coordinate you haven't fired upon before!"
         end
 
-       if  @board_computer.cells[input].empty? == true 
-        puts "Your shot at #{input} was a miss!"
-       elsif @board_computer.cells[input].empty? == false && @board_computer.cells[input].ship.sunk? == true
-        puts "Your shot at #{input} sunk the ship!"
-       else 
-        puts "Your shot at #{input} was a hit!"
-
-       end
+        if @board_computer.cells[input].empty? == true 
+            puts "Your shot at #{input} was a miss!"
+        elsif @board_computer.cells[input].empty? == false && @board_computer.cells[input].ship.sunk? == true
+            puts "Your shot at #{input} sunk the ship!"
+        else 
+            puts "Your shot at #{input} was a hit!"
+        end
         @board_computer.cells[input].fire_upon
     end
 
@@ -138,13 +130,12 @@ class Player
         end
         @board_human.cells[computer_coordinate_1].fire_upon
 
-        if  @board_human.cells[computer_coordinate_1].empty? == true 
+        if @board_human.cells[computer_coordinate_1].empty? == true 
                 puts "My shot at #{computer_coordinate_1} was a miss!"
         elsif @board_human.cells[computer_coordinate_1].empty? == false && @board_human.cells[computer_coordinate_1].ship.sunk? == true
             puts "My shot at #{computer_coordinate_1} sunk the ship!"
         else 
             puts "My shot at #{computer_coordinate_1} was a hit!"
-    
         end
     end
 
@@ -153,6 +144,4 @@ class Player
            ship.sunk?
         end
     end
-
-     
 end

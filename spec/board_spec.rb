@@ -49,7 +49,6 @@ RSpec.describe Cell do
     expect(@board.valid_placement?(@submarine, ["C2", "D3"])).to be(false)
     expect(@board.valid_placement?(@submarine, ["A1", "A2"])).to be(true)
     expect(@board.valid_placement?(@cruiser, ["B1", "C1", "D1"])).to be(true)
-
   end
 
   it 'places ship in cells' do
@@ -95,5 +94,4 @@ RSpec.describe Cell do
 
   #The methods is_consecutive?(), is_constant?(), and overlapping?() are private helper methods,
   #and are implicitly already tested by running valid_placement?(), etc.
-
 end

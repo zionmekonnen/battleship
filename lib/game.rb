@@ -17,7 +17,7 @@ class Game
             if player_win_status == true
                 p "You are so amazing, you WIN!"
             else 
-                p "You lose! Better luck next time."
+                p "You LOSE! Better luck next time."
             end
         end
     end
@@ -37,12 +37,14 @@ class Game
             return false 
         end
     end
-     def game_setup()
+     
+    def game_setup()
         puts 'Please place your 2 ships, the Cruiser is three units long and the Submarine is two units long.'
 
         @human_player.human_place_ships
         @computer_player.computer_place_ships
     end
+
     def take_turns
         loop do
             p "=============COMPUTER BOARD============="
@@ -59,9 +61,6 @@ class Game
             if @computer_player.all_ships_sunk? == true 
                 return true
             end
-            
-
         end
-
     end
 end

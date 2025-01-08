@@ -23,5 +23,4 @@ RSpec.describe Game do
     end
 
     #All other methods at some point require human interaction, and therefore cannot be tested
-
 end    

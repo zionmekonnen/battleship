@@ -12,10 +12,6 @@ RSpec.describe Player do
         @board_human = Board.new
         @board_computer = Board.new
         @human_player = Player.new(@board_human, @board_computer)
-        # @cell_1 = @board.cells["A1"]
-        # @cell_2 = @board.cells["A2"]
-        # @cell_3 = @board.cells["A3"]
-
     end
     
     it 'exists' do 
@@ -23,7 +19,6 @@ RSpec.describe Player do
     end
     
     it 'can initialize' do 
-        expect(@human_player.coordinates_shot_at).to eq([])
         expect(@human_player.ships_owned).to eq([])
     end
 
@@ -55,5 +50,4 @@ RSpec.describe Player do
     end
 
     #All other methods either require user input or are random, and can't be tested
-
 end
