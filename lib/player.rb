@@ -1,6 +1,8 @@
 require 'pry'
 class Player 
-    attr_reader :coordinates_shot_at, :ships_owned
+    attr_reader :coordinates_shot_at
+    attr_accessor :ships_owned
+
     def initialize(board_human, board_computer)
         @coordinates_shot_at = []
         @ships_owned = []

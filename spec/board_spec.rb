@@ -23,6 +23,7 @@ RSpec.describe Cell do
   it 'has cells' do
     expect(@board.cells).to be_a(Hash)
     expect(@board.cells.length).to eq(16)
+    expect(@board.cells["B4"]).to be_a(Cell)
   end
 
   it 'returns if coordinates are valid' do
@@ -74,7 +75,6 @@ RSpec.describe Cell do
   it 'draws a board with correct hits and misses' do
     @board.place(@cruiser, ["A1", "A2", "A3"]) 
     @board.place(@submarine, ["C1", "D1"])
-    #Render here (look for S)
     expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC S . . . \nD S . . . \n")
 
     @board.cells["A1"].fire_upon
@@ -91,7 +91,9 @@ RSpec.describe Cell do
     @board.cells["A4"].fire_upon
     @board.cells["B3"].fire_upon
     expect(@board.render(true)).to eq("  1 2 3 4 \nA X X X M \nB . . M . \nC S . . . \nD H . . . \n")
-
   end
+
+  #The methods is_consecutive?(), is_constant?(), and overlapping?() are private helper methods,
+  #and are implicitly already tested by running valid_placement?(), etc.
 
 end

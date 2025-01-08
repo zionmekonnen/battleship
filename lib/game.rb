@@ -38,7 +38,7 @@ class Game
         end
     end
      def game_setup()
-        puts 'Please place your 2 ships, The Cruiser is three units long and the Submarine is two units long.'
+        puts 'Please place your 2 ships, the Cruiser is three units long and the Submarine is two units long.'
 
         @human_player.human_place_ships
         @computer_player.computer_place_ships
