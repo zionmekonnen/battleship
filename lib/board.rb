@@ -22,14 +22,12 @@ class Board
       "D3" => Cell.new("D3"),
       "D4" => Cell.new("D4")
     }
-
     @valid_coordinate = false
   end
 
   def valid_coordinate?(coordinates)
     @cells.key?(coordinates)
   end
-   
 
   def valid_placement?(ship, coordinates)
     if ship.length != coordinates.length 
@@ -58,10 +56,7 @@ class Board
   end
 
   def place(ship, coordinates)
-    #check is the placement valid 
-    #is it overlapping with another ship 
     if valid_placement?(ship, coordinates)
-      #if not overlapping it need to be assigned to the cell
       coordinates.each do |coordinate|
         @cells[coordinate].place_ship(ship)
       end
@@ -81,7 +76,6 @@ class Board
     end
     row_1 + rows.join
   end
-
 
   private
 
@@ -107,6 +101,4 @@ class Board
       !@cells[coordinate].empty?
     end
   end
-
-
 end

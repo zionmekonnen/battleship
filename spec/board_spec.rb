@@ -23,6 +23,7 @@ RSpec.describe Cell do
   it 'has cells' do
     expect(@board.cells).to be_a(Hash)
     expect(@board.cells.length).to eq(16)
+    expect(@board.cells["B4"]).to be_a(Cell)
   end
 
   it 'returns if coordinates are valid' do
@@ -48,7 +49,6 @@ RSpec.describe Cell do
     expect(@board.valid_placement?(@submarine, ["C2", "D3"])).to be(false)
     expect(@board.valid_placement?(@submarine, ["A1", "A2"])).to be(true)
     expect(@board.valid_placement?(@cruiser, ["B1", "C1", "D1"])).to be(true)
-
   end
 
   it 'places ship in cells' do
@@ -74,13 +74,24 @@ RSpec.describe Cell do
   it 'draws a board with correct hits and misses' do
     @board.place(@cruiser, ["A1", "A2", "A3"]) 
     @board.place(@submarine, ["C1", "D1"])
-    
-    @cruiser.hit
-    @cruiser.hit
+    expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC S . . . \nD S . . . \n")
+
+    @board.cells["A1"].fire_upon
+    @board.cells["A2"].fire_upon
+    expect(@board.render(true)).to eq("  1 2 3 4 \nA H H S . \nB . . . . \nC S . . . \nD S . . . \n")
     expect(@cruiser.health).to eq(1)
-    @cruiser.hit
+    @board.cells["A3"].fire_upon
     expect(@cruiser.sunk?).to be(true)
-    #We will come back to fully test rendering the board later
+    expect(@board.render(true)).to eq("  1 2 3 4 \nA X X X . \nB . . . . \nC S . . . \nD S . . . \n")
+
+    @board.cells["D1"].fire_upon
+    expect(@board.render(true)).to eq("  1 2 3 4 \nA X X X . \nB . . . . \nC S . . . \nD H . . . \n")
+
+    @board.cells["A4"].fire_upon
+    @board.cells["B3"].fire_upon
+    expect(@board.render(true)).to eq("  1 2 3 4 \nA X X X M \nB . . M . \nC S . . . \nD H . . . \n")
   end
 
+  #The methods is_consecutive?(), is_constant?(), and overlapping?() are private helper methods,
+  #and are implicitly already tested by running valid_placement?(), etc.
 end
