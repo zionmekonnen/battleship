@@ -49,5 +49,7 @@ RSpec.describe Player do
         expect(@human_player.all_ships_sunk?).to be(true)
     end
 
+    #We have not tested iteration 4 methods fully yet (for the computer AI).
+
     #All other methods either require user input or are random, and can't be tested
 end

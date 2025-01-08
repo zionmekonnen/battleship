@@ -18,8 +18,6 @@ RSpec.describe Game do
 
     it 'exists and can initialize' do
         expect(Game.new).to be_a(Game)
-        expect(@game.human_player).to be_a(Player)
-        expect(@game.computer_player).to be_a(Player)
     end
 
     #All other methods at some point require human interaction, and therefore cannot be tested

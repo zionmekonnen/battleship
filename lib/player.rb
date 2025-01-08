@@ -7,6 +7,12 @@ class Player
         @ships_owned = []
         @board_human = board_human      
         @board_computer = board_computer
+
+        #Variables for computer to track attack patterns
+        @previous_hits = []
+        @has_found_ship = false
+        @is_forward = true
+        @index_for_next_guess = 0
     end
 
     def create_ship(name, length)
@@ -131,6 +137,14 @@ class Player
             end
         end
         @board_human.cells[computer_coordinate_1].fire_upon
+        
+        #This is for iteration 4 - only partially working
+        # if !@has_found_ship
+        #     computer_coordinate_1 = random_search_pattern()
+        # else
+        #     computer_coordinate_1 = targeted_hit()
+        # end
+        # computer_coordinate_1 = random_search_pattern()
 
         if @board_human.cells[computer_coordinate_1].empty? == true 
                 puts "My shot at #{computer_coordinate_1} was a miss!"
@@ -138,6 +152,70 @@ class Player
             puts "My shot at #{computer_coordinate_1} sunk the ship!"
         else 
             puts "My shot at #{computer_coordinate_1} was a hit!"
+        end
+    end
+
+    def random_search_pattern()
+        random_row = nil
+        random_column = nil
+
+        loop do
+          random_row = ("A".."D").to_a.sample
+          # random_column = ""
+          if ("A".."D").step(2).to_a.any?(random_row)
+            random_column = ("1".."4").step(2).to_a.sample        #Only samples from 1, 3, 5, ...
+          else
+            random_column = ("2".."4").step(2).to_a.sample        #Only samples from 2, 4, 6, ...
+          end
+          random_cell = @board_human.cells[random_row + random_column]
+      
+          if !random_cell.fired_upon?
+            random_cell.fire_upon
+            # @previous_hits << random_cell if !random_cell.empty?
+            # @has_found_ship = true
+            break
+          end
+        end
+
+        return random_row + random_column
+    end
+
+    def targeted_hit()
+        #If we only had one hit, check nearest neighbors for another hit
+        if @previous_hits.length == 1
+            neighbor_cells = find_neighbor_cells(@previous_hits.last)    
+            #Of course, only fire upon a neighbor that hasn't been incidentally fired upon initially
+            while @board.cells[neighbor_cells[@index_for_next_guess]].fired_upon?
+              @index_for_next_guess += 1
+            end
+        
+            @board.cells[neighbor_cells[@index_for_next_guess]].fire_upon
+            if !@board.cells[neighbor_cells[@index_for_next_guess]].empty?
+              @previous_hits << neighbor_cells[@index_for_next_guess]
+              @index_for_next_guess = 0
+            else
+              @index_for_next_guess += 1
+            end
+        end
+
+        #If we have two or more hits, we need to predict the next coordinate to hit (in a line).
+        #Code is incomplete here.
+    end
+
+    def find_neighbor_cells(coordinate)
+        #This locates the up-to-4 neighbor valid cells.
+        neighbor_coordinates = []
+        coordinate_letter = coordinate.slice(0, 1)
+        coordinate_number = coordinate.slice(1, coordinate.length - 1)
+      
+        neighbor_coordinates << (coordinate_letter.ord - 1).chr + coordinate_number
+        neighbor_coordinates << (coordinate_letter.ord + 1).chr + coordinate_number
+        neighbor_coordinates << coordinate_letter + (coordinate_number.ord - 1).chr
+        neighbor_coordinates << coordinate_letter + (coordinate_number.ord + 1).chr
+      
+        #Now iterate through array and only return subset of array that includes valid coordinates:
+        neighbor_coordinates.find_all do |coordinate|
+          @board_human.cells[coordinate].valid_coordinate?
         end
     end
 
